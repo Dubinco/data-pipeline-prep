@@ -19,5 +19,10 @@ df_2016 = spark.read.option("header", "true").option("delimiter", ";").csv(
 concat = df_2016.union(df_2011)
 concat = concat.union(df_2001)
 concat = concat.union(df_1980)
+#print(concat.count())
 #concat.dropDuplicates()
-concat.show()
+#concat.show()
+
+concat.write.parquet("result","overwrite")
+res = spark.read.parquet("result")
+res.show()
